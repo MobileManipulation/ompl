@@ -40,8 +40,8 @@
 
 void ompl::tools::OptimizePlan::addPlanner(const base::PlannerPtr &planner)
 {
-    if (planner && planner->getSpaceInformation().get() != getProblemDefinition()->getSpaceInformation().get())
-        throw Exception("Planner instance does not match space information");
+    // if (planner && planner->getSpaceInformation().get() != getProblemDefinition()->getSpaceInformation().get())
+    //     throw Exception("Planner instance does not match space information");
     planners_.push_back(planner);
 }
 
