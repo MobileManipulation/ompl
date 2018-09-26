@@ -40,6 +40,11 @@
 #include "ompl/base/State.h"
 #include "ompl/util/ClassForward.h"
 #include <utility>
+#include <cstdlib>
+#include <vector>
+#include <iostream>
+#include <future>
+#include <thread>
 
 namespace ompl
 {
@@ -81,6 +86,7 @@ namespace ompl
 
                 \note This function updates the number of valid and invalid segments. */
             virtual bool checkMotion(const State *s1, const State *s2) const = 0;
+            virtual std::future<bool> checkMotionFuture(const State *s1, const State *s2) const { return std::async(std::launch::async, []{ return true; }); }; 
 
             /** \brief Check if the path between two states is valid. Also compute the last state that was
                 valid and the time of that state. The time is used to parametrize the motion from \e s1 to \e s2, \e s1

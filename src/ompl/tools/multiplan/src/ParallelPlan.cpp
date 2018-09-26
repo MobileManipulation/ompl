@@ -47,8 +47,8 @@ ompl::tools::ParallelPlan::~ParallelPlan() = default;
 
 void ompl::tools::ParallelPlan::addPlanner(const base::PlannerPtr &planner)
 {
-    if (planner && planner->getSpaceInformation().get() != pdef_->getSpaceInformation().get())
-        throw Exception("Planner instance does not match space information");
+    // if (planner && planner->getSpaceInformation().get() != pdef_->getSpaceInformation().get())
+    //     throw Exception("Planner instance does not match space information");
     if (planner->getProblemDefinition().get() != pdef_.get())
         planner->setProblemDefinition(pdef_);
     planners_.push_back(planner);

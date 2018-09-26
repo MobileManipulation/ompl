@@ -138,8 +138,17 @@ ompl::geometric::RRTConnect::GrowState ompl::geometric::RRTConnect::growTree(Tre
         reach = false;
     }
 
-    bool validMotion = tgi.start ? si_->checkMotion(nmotion->state, dstate) :
-                                   si_->isValid(dstate) && si_->checkMotion(dstate, nmotion->state);
+    std::future<bool> motion_valid_future = si_->checkMotionFuture(nmotion->state, dstate);
+    std::future<bool> state_valid_future;
+    bool validMotion = false; 
+    if(!tgi.start){
+        std::future<bool> state_valid_future = si_->isValidFuture(dstate);
+        validMotion = state_valid_future.get() && motion_valid_future.get();
+    } else {
+        validMotion = motion_valid_future.get(); 
+    }
+    // bool validMotion = tgi.start ? (si_->checkMotionFuture(nmotion->state, dstate)).get() :
+    //                                (si_->isValidFuture(dstate)).get() && (si_->checkMotionFuture(dstate, nmotion->state)).get();
 
     if (!validMotion)
         return TRAPPED;

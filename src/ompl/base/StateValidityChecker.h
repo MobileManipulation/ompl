@@ -39,6 +39,9 @@
 
 #include "ompl/base/State.h"
 #include "ompl/util/ClassForward.h"
+#include <future>
+#include <thread>
+#include <iostream>
 
 namespace ompl
 {
@@ -109,6 +112,9 @@ namespace ompl
                 are outside of bounds, this function should also make a call to
                ompl::base::SpaceInformation::satisfiesBounds(). */
             virtual bool isValid(const State *state) const = 0;
+            virtual std::future<bool> isValidFuture(const State *state) const {
+                std::cerr << "we are in the base class for isValidFuture\n";
+                return std::async(std::launch::async, []{ return true; });};
 
             /** \brief Return true if the state \e state is valid. In addition, set \e dist to the distance to the
              * nearest invalid state. */

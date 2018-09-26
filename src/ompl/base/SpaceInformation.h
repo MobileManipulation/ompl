@@ -52,6 +52,8 @@
 #include <cstdlib>
 #include <vector>
 #include <iostream>
+#include <future>
+#include <thread>
 
 /** \brief Main namespace. Contains everything in this library */
 namespace ompl
@@ -94,6 +96,10 @@ namespace ompl
             bool isValid(const State *state) const
             {
                 return stateValidityChecker_->isValid(state);
+            }
+            std::future<bool> isValidFuture(const State *state) const
+            {
+                return stateValidityChecker_->isValidFuture(state);
             }
 
             /** \brief Return the instance of the used state space */
@@ -353,6 +359,12 @@ namespace ompl
             {
                 return motionValidator_->checkMotion(s1, s2);
             }
+
+            virtual std::future<bool> checkMotionFuture(const State *s1, const State *s2) const
+            {
+                return motionValidator_->checkMotionFuture(s1, s2);
+            }
+
 
             /** \brief Incrementally check if a sequence of states is valid. Given a vector of states, this routine only
                 checks the first \e count elements and marks the index of the first invalid state

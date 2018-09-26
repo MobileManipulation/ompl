@@ -143,11 +143,11 @@ unsigned int ompl::geometric::PathHybridization::recordPath(const base::PathPtr 
         return 0;
     }
 
-    if (p->getSpaceInformation() != si_)
-    {
-        OMPL_ERROR("Paths for hybridization must be from the same space information");
-        return 0;
-    }
+    // if (p->getSpaceInformation() != si_)
+    // {
+    //     OMPL_ERROR("Paths for hybridization must be from the same space information");
+    //     return 0;
+    // }
 
     // skip empty paths
     if (p->getStateCount() == 0)

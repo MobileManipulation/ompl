@@ -143,3 +143,8 @@ bool ompl::base::DiscreteMotionValidator::checkMotion(const State *s1, const Sta
 
     return result;
 }
+
+std::future<bool> ompl::base::DiscreteMotionValidator::checkMotionFuture(const State *s1, const State *s2) const
+{
+    return std::async(std::launch::async, []{ return true; });
+}

@@ -39,6 +39,11 @@
 
 #include "ompl/base/MotionValidator.h"
 #include "ompl/base/SpaceInformation.h"
+#include <cstdlib>
+#include <vector>
+#include <iostream>
+#include <future>
+#include <thread>
 
 namespace ompl
 {
@@ -64,6 +69,8 @@ namespace ompl
             ~DiscreteMotionValidator() override = default;
 
             bool checkMotion(const State *s1, const State *s2) const override;
+
+            std::future<bool> checkMotionFuture(const State *s1, const State *s2) const override;
 
             bool checkMotion(const State *s1, const State *s2, std::pair<State *, double> &lastValid) const override;
 
